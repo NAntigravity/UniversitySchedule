@@ -2,14 +2,8 @@ package com.example.universityschedule
 
 import android.content.Context
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.util.Log
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.WindowCompat
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -17,9 +11,26 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.example.universityschedule.databinding.ActivityMainBinding
+import androidx.lifecycle.MutableLiveData
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
+import com.example.universityschedule.network.ApiResponse
+import com.example.universityschedule.network.BaseViewModel
+import com.example.universityschedule.network.CoroutinesErrorHandler
+import com.example.universityschedule.network.Network
+import com.example.universityschedule.network.models.LoginResponse
+import com.example.universityschedule.network.models.basicmodels.LoginRequestBody
+import com.example.universityschedule.network.repository.AuthRepository
+import com.example.universityschedule.network.testfiles.TestRepository
+import com.example.universityschedule.network.testfiles.UserInfo
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,6 +43,20 @@ class MainActivity : AppCompatActivity() {
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
 
     private var readyToTopSheet = false
+
+
+    private val textView by lazy { findViewById<TextView>(R.id.state) }
+    private val userInfo by lazy { findViewById<TextView>(R.id.userInfo) }
+
+    private val liveData = MutableLiveData<ApiResponse<LoginResponse>>()
+    private val userData = MutableLiveData<ApiResponse<UserInfo>>()
+
+    private val coroutinesErrorHandler = object : CoroutinesErrorHandler {
+        override fun onError(message: String) {
+            textView.text = "!!!!!"
+            Log.d("!", message)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //WindowCompat.setDecorFitsSystemWindows(window, false)
@@ -49,10 +74,58 @@ class MainActivity : AppCompatActivity() {
         val button: Button = findViewById(R.id.openRegisterForm)
         button.setOnClickListener {
             setBottomSheetVisibility(true)
+
+            CoroutineScope(Dispatchers.IO).launch {
+                BaseViewModel().baseRequest(
+                    liveData, coroutinesErrorHandler,
+                    AuthRepository().login(
+                        LoginRequestBody(
+                            email = "test@testt.test",
+                            password = "112323"
+                        )
+                    )
+                )
+            }
+        }
+
+        object : CountDownTimer(2000000, 5000) {
+            override fun onTick(millisUntilFinished: Long) {
+                BaseViewModel().baseRequest(
+                    userData,
+                    coroutinesErrorHandler,
+                    TestRepository().getUserData()
+                )
+            }
+
+            override fun onFinish() {
+            }
+        }.start()
+        liveData.observe(this) {
+            when (it) {
+                is ApiResponse.Failure -> textView.text = it.errorMessage
+                ApiResponse.Loading -> textView.text = "Loading"
+                is ApiResponse.Success -> {
+                    textView.text = "SUCCESS!!!!!!"
+                    Network.updateToken(it.data.access_token, MainApplication.AccessToken)
+                    //Network.updateToken(it.data.refresh_token, MainApplication.RefreshToken)
+
+                }
+            }
+        }
+
+        userData.observe(this){
+            when (it) {
+                is ApiResponse.Failure -> userInfo.text = it.errorMessage
+                ApiResponse.Loading -> userInfo.text = "Loading"
+                is ApiResponse.Success -> {
+                    userInfo.text = Network.getToken(MainApplication.AccessToken)
+                }
+            }
         }
 
 
-        bottomSheetBehavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+        bottomSheetBehavior.addBottomSheetCallback(object :
+            BottomSheetBehavior.BottomSheetCallback() {
             override fun onStateChanged(bottomSheet: View, newState: Int) {
                 if (newState == BottomSheetBehavior.STATE_COLLAPSED && readyToTopSheet) {
                     topSheetView.startAnimation(fallingAnimation)
@@ -64,6 +137,11 @@ class MainActivity : AppCompatActivity() {
                     topSheetView.startAnimation(riseAnimation)
                     topSheetView.visibility = View.INVISIBLE
                     readyToTopSheet = true
+                }
+                if (newState == BottomSheetBehavior.STATE_HIDDEN){
+                    topSheetView.startAnimation(fallingAnimation)
+                    topSheetView.visibility = View.VISIBLE
+                    readyToTopSheet = false
                 }
                 Log.d("!", newState.toString())
             }

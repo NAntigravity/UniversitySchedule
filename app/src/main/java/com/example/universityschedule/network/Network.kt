@@ -1,5 +1,9 @@
 package com.example.universityschedule.network
 
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKey
+import com.example.universityschedule.MainApplication
+import com.example.universityschedule.network.testfiles.UserTestApi
 import com.example.universityschedule.network.api.*
 import com.example.universityschedule.network.models.basicmodels.ErrorResponse
 import com.example.universityschedule.network.retrofit.MyAuthenticator
@@ -21,7 +25,27 @@ object Network {
     const val BASE_URL = "https://jwt-test-api.onrender.com/api/"
 
     var token: String = ""
-    var refreshToken = ""
+    var refreshToken: String = ""
+
+    private var masterKey = MasterKey.Builder(MainApplication.applicationContext())
+        .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+        .build()
+
+    private var sharedPreferences = EncryptedSharedPreferences.create(
+        MainApplication.applicationContext(),
+        "secret_shared_prefs",
+        masterKey,
+        EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+        EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+    )
+
+    fun updateToken(newToken: String, typeOfToken: String){
+        sharedPreferences.edit().putString(typeOfToken, newToken).apply()
+    }
+
+    fun getToken(typeOfToken: String): String? {
+        return sharedPreferences.getString(typeOfToken, "")
+    }
 
     private fun getHttpClient(): OkHttpClient {
         val client = OkHttpClient.Builder().apply {
@@ -54,6 +78,9 @@ object Network {
     fun getRoomApi(): RoomApi = retrofit.create(RoomApi::class.java)
     fun getScheduleApi(): ScheduleApi = retrofit.create(ScheduleApi::class.java)
     fun getUserApi(): UserApi = retrofit.create(UserApi::class.java)
+
+    fun getUserTestApi(): UserTestApi = retrofit.create(UserTestApi::class.java)
+
 }
 
 fun <T> apiRequestFlow(call: suspend () -> Response<T>): Flow<ApiResponse<T>> = flow {

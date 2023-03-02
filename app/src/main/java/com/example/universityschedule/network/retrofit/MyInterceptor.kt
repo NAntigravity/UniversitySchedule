@@ -1,5 +1,6 @@
 package com.example.universityschedule.network.retrofit
 
+import com.example.universityschedule.MainApplication
 import com.example.universityschedule.network.Network
 import okhttp3.Interceptor
 import okhttp3.Request
@@ -10,7 +11,7 @@ class MyInterceptor : Interceptor {
         val request: Request = chain.request().newBuilder().apply {
             addHeader("accept", "application/json")
             addHeader("content-Type", "application/x-www-form-urlencoded")
-            addHeader("Authorization", "Bearer ${Network.token}")
+            addHeader("Authorization", "Bearer ${Network.getToken(MainApplication.AccessToken)}")
         }.build()
 
         return chain.proceed(request)
