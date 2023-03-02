@@ -1,4 +1,5 @@
 package com.example.universityschedule.network.api
+import com.example.universityschedule.network.Message
 import com.example.universityschedule.network.models.basicmodels.LoginRequestBody
 import com.example.universityschedule.network.models.LoginResponse
 import retrofit2.Response
@@ -16,5 +17,5 @@ interface AuthApi {
     suspend fun refreshToken(@Header("Authorization") token: String): Response<LoginResponse>
 
     @POST("auth/logout")
-    suspend fun logout()
+    suspend fun logout(): Response<Message>
 }

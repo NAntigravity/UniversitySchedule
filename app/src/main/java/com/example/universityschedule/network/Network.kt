@@ -1,7 +1,9 @@
 package com.example.universityschedule.network
 
-import com.example.universityschedule.network.api.AuthApi
+import com.example.universityschedule.network.api.*
 import com.example.universityschedule.network.models.basicmodels.ErrorResponse
+import com.example.universityschedule.network.retrofit.MyAuthenticator
+import com.example.universityschedule.network.retrofit.MyInterceptor
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -48,6 +50,10 @@ object Network {
     private val retrofit: Retrofit = getRetrofit()
 
     fun getAuthApi(): AuthApi = retrofit.create(AuthApi::class.java)
+    fun getListInfoApi(): ListInfoApi = retrofit.create(ListInfoApi::class.java)
+    fun getRoomApi(): RoomApi = retrofit.create(RoomApi::class.java)
+    fun getScheduleApi(): ScheduleApi = retrofit.create(ScheduleApi::class.java)
+    fun getUserApi(): UserApi = retrofit.create(UserApi::class.java)
 }
 
 fun <T> apiRequestFlow(call: suspend () -> Response<T>): Flow<ApiResponse<T>> = flow {

@@ -1,6 +1,7 @@
-package com.example.universityschedule.network
+package com.example.universityschedule.network.retrofit
 
 
+import com.example.universityschedule.network.Network
 import com.example.universityschedule.network.api.AuthApi
 import com.example.universityschedule.network.models.LoginResponse
 import kotlinx.coroutines.runBlocking

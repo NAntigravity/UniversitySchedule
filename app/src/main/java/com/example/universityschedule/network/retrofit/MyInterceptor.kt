@@ -1,5 +1,6 @@
-package com.example.universityschedule.network
+package com.example.universityschedule.network.retrofit
 
+import com.example.universityschedule.network.Network
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
