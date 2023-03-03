@@ -6,6 +6,6 @@ import retrofit2.http.Path
 
 interface RoomApi {
 
-    @GET("room/{buildingId}")
+    @GET("buildings/{buildingId}/rooms")
     suspend fun getRoomsInBuilding(@Path("buildingId") buildingId: Int): Response<RoomList>
 }

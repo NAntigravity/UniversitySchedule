@@ -1,6 +1,7 @@
 package com.example.universityschedule
 
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
@@ -12,6 +13,7 @@ import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.MutableLiveData
@@ -31,6 +33,8 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.toLocalDate
 
 class MainActivity : AppCompatActivity() {
 
@@ -58,6 +62,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         //WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
@@ -74,7 +79,8 @@ class MainActivity : AppCompatActivity() {
         val button: Button = findViewById(R.id.openRegisterForm)
         button.setOnClickListener {
             setBottomSheetVisibility(true)
-
+            Log.d("DATE", "2023-03-02".toLocalDate().dayOfWeek.value.toString())
+            Log.d("DATE", "2023-03-05".toLocalDate().dayOfWeek.value.toString())
             CoroutineScope(Dispatchers.IO).launch {
                 BaseViewModel().baseRequest(
                     liveData, coroutinesErrorHandler,
@@ -84,6 +90,8 @@ class MainActivity : AppCompatActivity() {
                             password = "112323"
                         )
                     )
+
+
                 )
             }
         }

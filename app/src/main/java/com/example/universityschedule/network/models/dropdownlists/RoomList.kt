@@ -1,6 +1,6 @@
 package com.example.universityschedule.network.models.dropdownlists
 
-import com.example.appfortests.retrofit.models.basicmodels.Room
+import com.example.universityschedule.network.models.basicmodels.Room
 
 @kotlinx.serialization.Serializable
 data class RoomList(

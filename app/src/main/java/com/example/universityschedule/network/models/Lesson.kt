@@ -1,10 +1,11 @@
 package com.example.universityschedule.network.models
 
-import com.example.appfortests.retrofit.models.basicmodels.*
+import com.example.universityschedule.network.models.basicmodels.Room
 import com.example.universityschedule.network.models.basicmodels.Building
 import com.example.universityschedule.network.models.basicmodels.Group
 import com.example.universityschedule.network.models.basicmodels.Subject
 import com.example.universityschedule.network.models.basicmodels.Teacher
+import kotlinx.datetime.LocalDate
 
 @kotlinx.serialization.Serializable
 data class Lesson(
@@ -15,4 +16,6 @@ data class Lesson(
     val room: Room,
     val building: Building,
     val subject: Subject,
+    val startDate: LocalDate,
+    val endDate: LocalDate
 )

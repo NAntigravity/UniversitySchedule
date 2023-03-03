@@ -15,4 +15,8 @@ class AuthRepository {
     fun logout() = apiRequestFlow {
         authApi.logout()
     }
+
+    fun register(registerData: LoginRequestBody) = apiRequestFlow {
+        authApi.register(registerData)
+    }
 }
