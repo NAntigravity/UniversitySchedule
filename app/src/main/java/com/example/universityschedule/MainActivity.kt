@@ -1,5 +1,6 @@
 package com.example.universityschedule
 
+import android.content.Context
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +11,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import android.view.inputmethod.InputMethodManager
 import com.example.universityschedule.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -18,20 +20,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
 
-    private val textView by lazy { findViewById<TextView>(R.id.state) }
-    private val userInfo by lazy { findViewById<TextView>(R.id.userInfo) }
-
-    private val liveData = MutableLiveData<ApiResponse<LoginResponse>>()
-    private val userData = MutableLiveData<ApiResponse<UserInfo>>()
-
-    private val coroutinesErrorHandler = object : CoroutinesErrorHandler {
-        override fun onError(message: String) {
-            textView.text = "!!!!!"
-            Log.d("!", message)
-        }
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         //WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)

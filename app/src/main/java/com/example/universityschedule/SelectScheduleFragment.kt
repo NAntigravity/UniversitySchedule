@@ -7,19 +7,24 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.TextView.OnEditorActionListener
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.universityschedule.network.ApiResponse
+import com.example.universityschedule.network.SelectTeacherViewModel
 
-class SelectScheduleFragment: Fragment() {
+class SelectScheduleFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
-    private var adapter: CrimeAdapter? = null
+    private var adapter: SelectAdapter? = null
 
-    private var allData = arrayListOf("Тестов тест Тестович", "Тестов тест Тестович", "Тестов тест Тестович", "Тестов тест Тестович", "Тестов тест Тестович", "Тестов тест Тестович", "Тестов тест Тестович", "Тестов тест Тестович", "Тестов тест Тестович", "Тестов тест Тестович", "Тестов тест Тестович", "Тестов тест Тестович", "Тестов тест Тестович", "Тестов тест Тестович", "Тестов тест Тестович")
-    private var suggestions = ArrayList<String>()
+    private val viewModel by lazy { ViewModelProvider(this)[SelectTeacherViewModel::class.java] }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,12 +35,15 @@ class SelectScheduleFragment: Fragment() {
         recyclerView = view.findViewById(R.id.suggestion_list)
         recyclerView.layoutManager = LinearLayoutManager(context)
 
-        updateUi()
-        setTextWatcher(view.findViewById(R.id.enterData))
+        adapter = SelectAdapter(viewModel.suggestions)
+        recyclerView.adapter = adapter
+
+        updateUi(view.findViewById(R.id.progressBar))
+        setTextWatchers(view.findViewById(R.id.enterData))
         return view
     }
 
-    private fun setTextWatcher(editText: EditText) {
+    private fun setTextWatchers(editText: EditText) {
         val textWatcher = object : TextWatcher {
             override fun beforeTextChanged(
                 sequence: CharSequence?,
@@ -51,40 +59,47 @@ class SelectScheduleFragment: Fragment() {
                 before: Int,
                 count: Int
             ) {
-                suggestions.clear()
-                if (sequence.toString().isNotBlank()){
-                    for (text in allData){
-                        if (text.contains(sequence.toString(), ignoreCase = true)){
-                            suggestions.add(text)
-                        }
-                    }
-                }
-                else{
-                    copyAllDataToSuggestions()
-                }
+                Log.d("!", "textChanged!")
+                viewModel.filterBy(sequence.toString())
                 adapter?.notifyDataSetChanged()
-
             }
 
             override fun afterTextChanged(sequence: Editable?) {
             }
         }
+
+        val doneClickListener =
+            OnEditorActionListener { text, actionId, _ ->
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    text.clearFocus()
+                }
+                false
+            }
+
+        editText.setOnEditorActionListener(doneClickListener)
         editText.addTextChangedListener(textWatcher)
     }
 
-    private fun updateUi() {
-        copyAllDataToSuggestions()
-        adapter = CrimeAdapter(suggestions)
-        recyclerView.adapter = adapter
-    }
-
-    private fun copyAllDataToSuggestions(){
-        allData.forEach {
-            suggestions.add(it)
+    private fun updateUi(progressBar: ProgressBar) {
+        viewModel.data.observe(viewLifecycleOwner) {
+            when (it) {
+                ApiResponse.Loading -> progressBar.visibility = View.VISIBLE
+                is ApiResponse.Failure -> {
+                    Log.d("!", "Fail")
+                    progressBar.visibility = View.GONE
+                }
+                is ApiResponse.Success -> {
+                    viewModel.saveTeachers(it.data)
+                    progressBar.visibility = View.GONE
+                    adapter?.notifyDataSetChanged()
+                }
+            }
         }
     }
 
-    private inner class SuggestionHolder(view: View): RecyclerView.ViewHolder(view), View.OnClickListener{
+
+    private inner class SuggestionHolder(view: View) : RecyclerView.ViewHolder(view),
+        View.OnClickListener {
         private lateinit var data: String
         private val textView: TextView = itemView.findViewById(R.id.select_item)
 
@@ -98,11 +113,12 @@ class SelectScheduleFragment: Fragment() {
         }
 
         override fun onClick(p0: View?) {
-            TODO("Not yet implemented")
+            Log.d("!", "Clicked on ${textView.text}!")
         }
     }
 
-    private inner class CrimeAdapter(var suggestions: List<String>): RecyclerView.Adapter<SuggestionHolder>(){
+    private inner class SelectAdapter(var suggestions: List<String>) :
+        RecyclerView.Adapter<SuggestionHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SuggestionHolder {
             val view = layoutInflater.inflate(R.layout.select_item, parent, false)
             return SuggestionHolder(view)
@@ -116,8 +132,8 @@ class SelectScheduleFragment: Fragment() {
         override fun getItemCount() = suggestions.size
     }
 
-    companion object{
-        fun newInstance(): SelectScheduleFragment{
+    companion object {
+        fun newInstance(): SelectScheduleFragment {
             return SelectScheduleFragment()
         }
     }
