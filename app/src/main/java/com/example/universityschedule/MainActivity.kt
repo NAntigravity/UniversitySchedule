@@ -14,9 +14,24 @@ import com.example.universityschedule.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-//    private lateinit var appBarConfiguration: AppBarConfiguration
-//    private lateinit var binding: ActivityMainBinding
+    private lateinit var appBarConfiguration: AppBarConfiguration
+    private lateinit var binding: ActivityMainBinding
 
+
+    private val textView by lazy { findViewById<TextView>(R.id.state) }
+    private val userInfo by lazy { findViewById<TextView>(R.id.userInfo) }
+
+    private val liveData = MutableLiveData<ApiResponse<LoginResponse>>()
+    private val userData = MutableLiveData<ApiResponse<UserInfo>>()
+
+    private val coroutinesErrorHandler = object : CoroutinesErrorHandler {
+        override fun onError(message: String) {
+            textView.text = "!!!!!"
+            Log.d("!", message)
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         //WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
