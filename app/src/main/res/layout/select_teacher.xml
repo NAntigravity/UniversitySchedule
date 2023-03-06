@@ -65,7 +65,7 @@
             android:background="@null"
             android:ems="10"
             android:fontFamily="@font/oxygen"
-            android:hint="@string/inter_teacher_name"
+            android:hint="@string/enter_teacher_name"
             android:imeOptions="actionDone"
             android:inputType="textPersonName"
             android:lines="1"

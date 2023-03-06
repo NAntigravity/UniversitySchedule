@@ -1,5 +1,6 @@
 package com.example.universityschedule
 
+import android.R.id
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -31,6 +32,13 @@ class SelectScheduleFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        when (arguments?.getString("typeOfFragment")){
+            MainApplication.TeachersFragment -> Log.d("!", "SelectTeacherFragment") // viewModel -  SelectTeacherViewModel
+            MainApplication.GroupsFragment -> Log.d("!", "SelectGroupFragment") // viewModel -  SelectGroupViewModel
+            MainApplication.BuildingsFragment -> Log.d("!", "SelectBuildingFragment") // viewModel -  SelectBuildingViewModel
+        }
+
         val view = inflater.inflate(R.layout.select_teacher, container, false)
         recyclerView = view.findViewById(R.id.suggestion_list)
         recyclerView.layoutManager = LinearLayoutManager(context)
@@ -133,8 +141,12 @@ class SelectScheduleFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(): SelectScheduleFragment {
-            return SelectScheduleFragment()
+        fun newInstance(typeOfFragment: String): SelectScheduleFragment {
+            val args = Bundle()
+            args.putString("typeOfFragment", typeOfFragment)
+            val newFragment = SelectScheduleFragment()
+            newFragment.arguments = args
+            return newFragment
         }
     }
 }

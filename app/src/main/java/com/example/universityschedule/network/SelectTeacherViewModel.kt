@@ -20,7 +20,7 @@ class SelectTeacherViewModel: BaseViewModel() {
     private val testListInfoApi: TeachersTestApi = TeachersTestApi()
 
     val data = MutableLiveData<ApiResponse<TeachersList>>()
-    var teachers = ArrayList<String>()
+    private var teachers = ArrayList<String>()
 
     val suggestions = ArrayList<String>()
 
@@ -44,7 +44,7 @@ class SelectTeacherViewModel: BaseViewModel() {
         }
     }
 
-    fun copyAllTeachersToSuggestion(){
+    private fun copyAllTeachersToSuggestion(){
         for (teacher in teachers){
             suggestions.add(teacher)
         }
