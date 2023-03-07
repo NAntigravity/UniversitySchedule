@@ -27,8 +27,9 @@ class MainActivity : AppCompatActivity() {
 
         val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
         if (currentFragment == null) {
-            val fragment = SelectScheduleFragment.newInstance(typeOfFragment = MainApplication.TeachersFragment)
+            //val fragment = SelectScheduleFragment.newInstance(typeOfFragment = MainApplication.TeachersFragment)
             //val fragment = SelectRoomScheduleFragment.newInstance(buildingId = "123")
+            val fragment = MenuFragment.newInstance(authorizedUser = false)
 
 
             supportFragmentManager
