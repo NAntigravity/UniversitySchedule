@@ -1,6 +1,5 @@
 package com.example.universityschedule
 
-import android.R.id
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -18,7 +17,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.universityschedule.network.ApiResponse
-import com.example.universityschedule.network.SelectTeacherViewModel
+import com.example.universityschedule.network.models.basicmodels.Teacher
+import com.example.universityschedule.viewmodels.SelectTeacherViewModel
 
 class SelectScheduleFragment : Fragment() {
 
@@ -108,12 +108,12 @@ class SelectScheduleFragment : Fragment() {
 
     private inner class SuggestionHolder(view: View) : RecyclerView.ViewHolder(view),
         View.OnClickListener {
-        private lateinit var data: String
+        private lateinit var data: Teacher
         private val textView: TextView = itemView.findViewById(R.id.select_item)
 
-        fun bind(data: String) {
+        fun bind(data: Teacher) {
             this.data = data
-            textView.text = data
+            textView.text = data.name
         }
 
         init {
@@ -125,7 +125,7 @@ class SelectScheduleFragment : Fragment() {
         }
     }
 
-    private inner class SelectAdapter(var suggestions: List<String>) :
+    private inner class SelectAdapter(var suggestions: List<Teacher>) :
         RecyclerView.Adapter<SuggestionHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SuggestionHolder {
             val view = layoutInflater.inflate(R.layout.select_item, parent, false)

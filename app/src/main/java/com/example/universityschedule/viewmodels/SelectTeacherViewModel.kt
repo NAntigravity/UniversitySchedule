@@ -1,9 +1,14 @@
-package com.example.universityschedule.network
+package com.example.universityschedule.viewmodels
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.universityschedule.network.ApiResponse
+import com.example.universityschedule.network.BaseViewModel
+import com.example.universityschedule.network.CoroutinesErrorHandler
+import com.example.universityschedule.network.apiRequestFlow
 import com.example.universityschedule.network.models.basicmodels.Teacher
+import com.example.universityschedule.network.models.dropdownlists.RoomList
 import com.example.universityschedule.network.models.dropdownlists.TeachersList
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -20,9 +25,9 @@ class SelectTeacherViewModel: BaseViewModel() {
     private val testListInfoApi: TeachersTestApi = TeachersTestApi()
 
     val data = MutableLiveData<ApiResponse<TeachersList>>()
-    private var teachers = ArrayList<String>()
+    private var teachers = ArrayList<Teacher>()
 
-    val suggestions = ArrayList<String>()
+    val suggestions = ArrayList<Teacher>()
 
     init{
         viewModelScope.launch {
@@ -34,7 +39,7 @@ class SelectTeacherViewModel: BaseViewModel() {
         suggestions.clear()
         if (filter.isNotBlank()){
             for (teacher in teachers){
-                if (teacher.contains(filter, ignoreCase = true)){
+                if (teacher.name.contains(filter, ignoreCase = true)){
                     suggestions.add(teacher)
                 }
             }
@@ -52,7 +57,7 @@ class SelectTeacherViewModel: BaseViewModel() {
 
     fun saveTeachers(data: TeachersList) {
         for (teacher in data.teachers){
-            teachers.add(teacher.name)
+            teachers.add(teacher)
         }
         copyAllTeachersToSuggestion()
     }
