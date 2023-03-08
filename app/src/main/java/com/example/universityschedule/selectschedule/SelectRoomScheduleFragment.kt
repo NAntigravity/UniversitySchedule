@@ -1,4 +1,4 @@
-package com.example.universityschedule
+package com.example.universityschedule.selectschedule
 
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.universityschedule.R
 import com.example.universityschedule.network.ApiResponse
 import com.example.universityschedule.network.models.basicmodels.Room
 import com.example.universityschedule.viewmodels.SelectRoomViewModel
@@ -100,7 +101,7 @@ class SelectRoomScheduleFragment: Fragment() {
 
 
     companion object {
-        fun newInstance(buildingId: String): SelectRoomScheduleFragment{
+        fun newInstance(buildingId: String): SelectRoomScheduleFragment {
             val args = Bundle()
             args.putString("buildingId", buildingId)
 

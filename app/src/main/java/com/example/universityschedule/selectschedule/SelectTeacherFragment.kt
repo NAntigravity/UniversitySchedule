@@ -1,4 +1,4 @@
-package com.example.universityschedule
+package com.example.universityschedule.selectschedule
 
 import android.os.Bundle
 import android.text.Editable
@@ -16,11 +16,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.universityschedule.R
 import com.example.universityschedule.network.ApiResponse
 import com.example.universityschedule.network.models.basicmodels.Teacher
 import com.example.universityschedule.viewmodels.SelectTeacherViewModel
 
-class SelectScheduleFragment : Fragment() {
+class SelectTeacherFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private var adapter: SelectAdapter? = null
@@ -32,19 +33,15 @@ class SelectScheduleFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        when (arguments?.getString("typeOfFragment")){
-            MainApplication.TeachersFragment -> Log.d("!", "SelectTeacherFragment") // viewModel -  SelectTeacherViewModel
-            MainApplication.GroupsFragment -> Log.d("!", "SelectGroupFragment") // viewModel -  SelectGroupViewModel
-            MainApplication.BuildingsFragment -> Log.d("!", "SelectBuildingFragment") // viewModel -  SelectBuildingViewModel
-        }
-
-        val view = inflater.inflate(R.layout.select_teacher, container, false)
+        val view = inflater.inflate(R.layout.select_schedule, container, false)
         recyclerView = view.findViewById(R.id.suggestion_list)
         recyclerView.layoutManager = LinearLayoutManager(context)
 
         adapter = SelectAdapter(viewModel.suggestions)
         recyclerView.adapter = adapter
+
+        view.findViewById<TextView>(R.id.title).text = resources.getText(R.string.teachers)
+        view.findViewById<EditText>(R.id.enterData).hint = resources.getText(R.string.enter_teacher_name)
 
         updateUi(view.findViewById(R.id.progressBar))
         setTextWatchers(view.findViewById(R.id.enterData))
@@ -67,7 +64,6 @@ class SelectScheduleFragment : Fragment() {
                 before: Int,
                 count: Int
             ) {
-                Log.d("!", "textChanged!")
                 viewModel.filterBy(sequence.toString())
                 adapter?.notifyDataSetChanged()
             }
@@ -97,7 +93,7 @@ class SelectScheduleFragment : Fragment() {
                     progressBar.visibility = View.GONE
                 }
                 is ApiResponse.Success -> {
-                    viewModel.saveTeachers(it.data)
+                    viewModel.saveData(it.data)
                     progressBar.visibility = View.GONE
                     adapter?.notifyDataSetChanged()
                 }
@@ -141,11 +137,9 @@ class SelectScheduleFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(typeOfFragment: String): SelectScheduleFragment {
-            val args = Bundle()
-            args.putString("typeOfFragment", typeOfFragment)
-            val newFragment = SelectScheduleFragment()
-            newFragment.arguments = args
+        fun newInstance(): SelectTeacherFragment {
+            val newFragment = SelectTeacherFragment()
+
             return newFragment
         }
     }

@@ -8,13 +8,12 @@ import com.example.universityschedule.network.BaseViewModel
 import com.example.universityschedule.network.CoroutinesErrorHandler
 import com.example.universityschedule.network.apiRequestFlow
 import com.example.universityschedule.network.models.basicmodels.Teacher
-import com.example.universityschedule.network.models.dropdownlists.RoomList
 import com.example.universityschedule.network.models.dropdownlists.TeachersList
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
-class SelectTeacherViewModel: BaseViewModel() {
+class SelectTeacherViewModel(): BaseViewModel() {
     private val coroutinesErrorHandler = object : CoroutinesErrorHandler {
         override fun onError(message: String) {
             Log.d("!", message)
@@ -55,7 +54,7 @@ class SelectTeacherViewModel: BaseViewModel() {
         }
     }
 
-    fun saveTeachers(data: TeachersList) {
+    fun saveData(data: TeachersList) {
         for (teacher in data.teachers){
             teachers.add(teacher)
         }

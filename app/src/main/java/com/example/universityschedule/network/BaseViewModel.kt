@@ -10,7 +10,7 @@ interface CoroutinesErrorHandler {
     fun onError(message: String)
 }
 
-open class BaseViewModel : ViewModel() {
+abstract class BaseViewModel : ViewModel() {
     private var mJob: Job? = null
 
     fun <T> baseRequest(

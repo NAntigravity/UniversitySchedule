@@ -1,18 +1,12 @@
 package com.example.universityschedule
 
-import android.content.Context
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.WindowCompat
-import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import android.view.Menu
-import android.view.MenuItem
-import android.view.inputmethod.InputMethodManager
 import com.example.universityschedule.databinding.ActivityMainBinding
+import com.example.universityschedule.selectschedule.SelectBuildingFragment
+import com.example.universityschedule.selectschedule.SelectGroupFragment
+import com.example.universityschedule.selectschedule.SelectTeacherFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,9 +21,12 @@ class MainActivity : AppCompatActivity() {
 
         val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
         if (currentFragment == null) {
+            val fragment = SelectBuildingFragment.newInstance()
+            //val fragment = SelectTeacherFragment.newInstance()
+            //val fragment = SelectGroupFragment.newInstance()
             //val fragment = SelectScheduleFragment.newInstance(typeOfFragment = MainApplication.TeachersFragment)
             //val fragment = SelectRoomScheduleFragment.newInstance(buildingId = "123")
-            val fragment = MenuFragment.newInstance(authorizedUser = false)
+            //val fragment = MenuFragment.newInstance(authorizedUser = false)
 
 
             supportFragmentManager
