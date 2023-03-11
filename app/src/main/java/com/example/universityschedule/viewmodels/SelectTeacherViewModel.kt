@@ -20,8 +20,8 @@ class SelectTeacherViewModel(): BaseViewModel() {
         }
     }
 
-    //private val listInfoApi: ListInfoApi = Network.getListInfoApi()
-    private val testListInfoApi: TeachersTestApi = TeachersTestApi()
+    private val listInfoRepository: InformationTestRepository = InformationTestRepository()
+    //private val listInfoRepository: InformationRepository = InformationRepository()
 
     val data = MutableLiveData<ApiResponse<TeachersList>>()
     private var teachers = ArrayList<Teacher>()
@@ -30,7 +30,7 @@ class SelectTeacherViewModel(): BaseViewModel() {
 
     init{
         viewModelScope.launch {
-            baseRequest(data, coroutinesErrorHandler, apiRequestFlow { testListInfoApi.getTeachers() })
+            baseRequest(data, coroutinesErrorHandler, listInfoRepository.getTeachers())
         }
     }
 
@@ -59,17 +59,5 @@ class SelectTeacherViewModel(): BaseViewModel() {
             teachers.add(teacher)
         }
         copyAllTeachersToSuggestion()
-    }
-}
-
-class TeachersTestApi {
-    suspend fun getTeachers(): Response<TeachersList>{
-        delay(3000L)
-
-        val teacherList = TeachersList(
-            teachers = listOf(Teacher(id = "12323", name = "Тест Тестов"), Teacher(id = "12323", name = "ТесЫФВт Тестов"),Teacher(id = "12323", name = "Твывест Тестов"),Teacher(id = "12323", name = "Тест Тестов"),Teacher(id = "12323", name = "Тест Тестов"),)
-        )
-
-        return Response.success(teacherList)
     }
 }

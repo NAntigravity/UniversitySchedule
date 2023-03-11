@@ -40,7 +40,8 @@ class SelectBuildingFragment : Fragment() {
         recyclerView.adapter = adapter
 
         view.findViewById<TextView>(R.id.title).text = resources.getText(R.string.buildings)
-        view.findViewById<EditText>(R.id.enterData).hint = resources.getText(R.string.enter_building_number)
+        view.findViewById<EditText>(R.id.enterData).hint =
+            resources.getText(R.string.enter_building_number)
 
         updateUi(view.findViewById(R.id.progressBar))
         setTextWatchers(view.findViewById(R.id.enterData))

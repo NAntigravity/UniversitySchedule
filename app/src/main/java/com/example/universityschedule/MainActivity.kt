@@ -6,6 +6,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import com.example.universityschedule.databinding.ActivityMainBinding
 import com.example.universityschedule.selectschedule.SelectBuildingFragment
 import com.example.universityschedule.selectschedule.SelectGroupFragment
+import com.example.universityschedule.selectschedule.SelectRoomScheduleFragment
 import com.example.universityschedule.selectschedule.SelectTeacherFragment
 
 class MainActivity : AppCompatActivity() {
@@ -21,12 +22,11 @@ class MainActivity : AppCompatActivity() {
 
         val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
         if (currentFragment == null) {
-            val fragment = SelectBuildingFragment.newInstance()
+            //val fragment = SelectBuildingFragment.newInstance()
             //val fragment = SelectTeacherFragment.newInstance()
             //val fragment = SelectGroupFragment.newInstance()
-            //val fragment = SelectScheduleFragment.newInstance(typeOfFragment = MainApplication.TeachersFragment)
             //val fragment = SelectRoomScheduleFragment.newInstance(buildingId = "123")
-            //val fragment = MenuFragment.newInstance(authorizedUser = false)
+            val fragment = MenuFragment.newInstance(authorizedUser = true)
 
 
             supportFragmentManager
