@@ -43,18 +43,18 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+    <string name="email">Введите email</string>
+    <string name="schedule">Schedule.</string>
+    <string name="registerButton">регистрация</string>
+    <string name="loginButton">вход</string>
     <string name="enter_teacher_name">Введите имя преподавателя</string>
     <string name="enter_group_number">Введите номер группы</string>
     <string name="enter_building_number">Введите номер корпуса</string>
     <string name="teachers">Преподаватели</string>
-    <string name="teachers1">Преподавателя</string>
     <string name="groups">Группы</string>
     <string name="buildings">Корпуса</string>
 
     <string name="building">корпус</string>
-    <string name="profile">Профиль</string>
-    <string name="mySchedule">Моё расписание</string>
-    <string name="selectScheduleText">Выбрать расписание</string>
-    <string name="rooms">Аудитории</string>
-    <string name="backToSchedule">Вернуться к расписанию</string>
+    <string name="to_schedule_button">к выбору расписания</string>
+    <string name="password">Введите пароль</string>
 </resources>
