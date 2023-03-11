@@ -2,8 +2,22 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.UniversitySchedule" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/cian_blue</item>
     </style>
+
+    <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/text_input_box_stroke</item>
+        <item name="boxCornerRadiusBottomEnd">32dp</item>
+        <item name="boxCornerRadiusBottomStart">32dp</item>
+        <item name="boxCornerRadiusTopEnd">32dp</item>
+        <item name="boxCornerRadiusTopStart">32dp</item>
+        <item name="boxBackgroundColor">@color/white</item>
+    </style>
+
+    <style name="ToScheduleButton" parent="Widget.MaterialComponents.Button">
+        <item name="boxBackgroundColor">@color/light_buttons_back</item>
+    </style>
+
 
     <style name="Theme.UniversitySchedule" parent="Base.Theme.UniversitySchedule" />
 </resources>
