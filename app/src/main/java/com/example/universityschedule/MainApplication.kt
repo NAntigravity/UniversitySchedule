@@ -22,6 +22,7 @@ class MainApplication: Application() {
         const val UserId: String = "user_id"
         const val UserRole: String = "user_role"
         const val UserName: String = "user_name"
+        const val StudentGroup: String = "student_group"
 
         const val TeachersFragment: String = "select_teacher"
         const val GroupsFragment: String = "select_group"

@@ -25,11 +25,11 @@ class AuthorizationViewModel : BaseViewModel() {
         )
     }
 
-    fun register(email: String, password: String) {
+    fun register(email: String, password: String, name: String) {
         baseRequest(
             _requestStatus,
             TroubleShooting.coroutinesErrorHandler,
-            authRepository.register(RegisterRequestBody(name = "Тест Тестов" , email = email, password = password))
+            authRepository.register(RegisterRequestBody(name = name , email = email, password = password))
         )
     }
 }

@@ -25,7 +25,7 @@ abstract class BaseViewModel : ViewModel() {
         }) {
             request.collect {
                 withContext(Dispatchers.Main) {
-                    liveData.value = it
+                    liveData.postValue(it)
                 }
             }
         }

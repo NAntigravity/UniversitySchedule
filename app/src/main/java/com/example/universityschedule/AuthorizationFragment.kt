@@ -35,6 +35,7 @@ class AuthorizationFragment : Fragment() {
     private lateinit var loginPassword: TextInputLayout
     private lateinit var registerEmail: TextInputLayout
     private lateinit var registerPassword: TextInputLayout
+    private lateinit var registerName: TextInputLayout
 
     private lateinit var loginButton: Button
     private lateinit var registerButton: Button
@@ -56,7 +57,8 @@ class AuthorizationFragment : Fragment() {
         registerButton.setOnClickListener {
             viewModel.register(
                 email = registerEmail.editText?.text.toString(),
-                password = registerPassword.editText?.text.toString()
+                password = registerPassword.editText?.text.toString(),
+                name = registerName.editText?.text.toString()
             )
         }
 
@@ -73,19 +75,21 @@ class AuthorizationFragment : Fragment() {
 
                     Network.userAuthorized = true
 
-                    val userId = Network.getSharedPrefs(MainApplication.UserId)
-                    when (EnumConverter.getRole(Network.getSharedPrefs(MainApplication.UserRole))) {
-                        "teacher" -> findNavController().navigate(
-                            AuthorizationFragmentDirections.actionAuthorizationFrameToMainFrame(
-                                teacherId = userId
-                            )
-                        )
-                        "student" -> findNavController().navigate(
-                            AuthorizationFragmentDirections.actionAuthorizationFrameToMainFrame(
-                                groupId = userId
-                            )
-                        )
-                    }
+                    findNavController().navigate(AuthorizationFragmentDirections.actionAuthorizationFrameToMenuFrame(true))
+
+//                    val userId = Network.getSharedPrefs(MainApplication.UserId)
+//                    when (EnumConverter.getRole(Network.getSharedPrefs(MainApplication.UserRole))) {
+//                        "teacher" -> findNavController().navigate(
+//                            AuthorizationFragmentDirections.actionAuthorizationFrameToMainFrame(
+//                                teacherId = userId
+//                            )
+//                        )
+//                        "student" -> findNavController().navigate(
+//                            AuthorizationFragmentDirections.actionAuthorizationFrameToMainFrame(
+//                                groupId = userId
+//                            )
+//                        )
+//                    }
 
 
                 }
@@ -152,6 +156,7 @@ class AuthorizationFragment : Fragment() {
         loginPassword = view.findViewById(R.id.loginPasswordField)
         registerEmail = view.findViewById(R.id.registerEmailField)
         registerPassword = view.findViewById(R.id.registerPasswordField)
+        registerName = view.findViewById(R.id.registerNameField)
 
         loginButton = view.findViewById(R.id.login_button)
         registerButton = view.findViewById(R.id.register_button)

@@ -46,6 +46,16 @@ object Network {
         return sharedPreferences.getString(typeOfData, "")
     }
 
+    fun clearUserData(){
+        updateSharedPrefs(MainApplication.AccessToken, "")
+        updateSharedPrefs(MainApplication.RefreshToken, "")
+        updateSharedPrefs(MainApplication.UserName, "")
+        updateSharedPrefs(MainApplication.UserId, "")
+        updateSharedPrefs(MainApplication.UserRole, "")
+        updateSharedPrefs(MainApplication.StudentGroup, "")
+        userAuthorized = false
+    }
+
     private fun getHttpClient(): OkHttpClient {
         val client = OkHttpClient.Builder().apply {
             connectTimeout(15, TimeUnit.SECONDS)

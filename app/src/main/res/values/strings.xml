@@ -58,6 +58,8 @@
     <string name="to_schedule_button">к выбору расписания</string>
     <string name="password">Введите пароль</string>
     <string name="teachers1">Преподавателя</string>
+    <string name="teacher">Преподаватель</string>
+    <string name="student">Студент</string>
 
     <string name="profile">Профиль</string>
     <string name="mySchedule">Моё расписание</string>

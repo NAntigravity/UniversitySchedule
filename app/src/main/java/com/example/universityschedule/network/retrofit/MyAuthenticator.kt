@@ -1,12 +1,13 @@
 package com.example.universityschedule.network.retrofit
 
-
 import com.example.universityschedule.MainApplication
 import com.example.universityschedule.TroubleShooting
 import com.example.universityschedule.network.Network
 import com.example.universityschedule.network.api.AuthApi
 import com.example.universityschedule.network.models.LoginResponse
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -19,7 +20,9 @@ class MyAuthenticator : Authenticator {
             //val newTokenResponse = getNewToken(Network.RefreshToken)
 
             if (!newTokenResponse.isSuccessful || newTokenResponse.body() == null) {
-                //TroubleShooting.failToUpdateToken.value = true
+                withContext(Dispatchers.Main){
+                    TroubleShooting.failToUpdateToken.postValue(true)
+                }
             }
 
             newTokenResponse.body()?.let {

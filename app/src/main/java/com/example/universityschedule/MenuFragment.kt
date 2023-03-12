@@ -64,7 +64,7 @@ class MenuFragment : Fragment() {
                     is ApiResponse.Success -> {
                         Network.updateSharedPrefs(MainApplication.UserId, it.data.defaultId)
                         Network.updateSharedPrefs(MainApplication.UserRole, it.data.role.toString())
-                        Network.updateSharedPrefs(MainApplication.UserName, it.data.login)
+                        Network.updateSharedPrefs(MainApplication.UserName, it.data.name)
                     }
                     is ApiResponse.Failure -> { }
                 }
