@@ -44,7 +44,7 @@
             android:fontFamily="@font/oxygen"
             android:text="Корпус №"
             android:textSize="10sp"
-            app:layout_constraintBottom_toTopOf="@+id/teacher_name"
+
             app:layout_constraintStart_toEndOf="@+id/location_icon"
             app:layout_constraintTop_toBottomOf="@+id/discipline"
             app:layout_constraintVertical_bias="0.5" />
@@ -58,7 +58,7 @@
             android:fontFamily="@font/oxygen"
             android:text="аудитория №"
             android:textSize="10sp"
-            app:layout_constraintBottom_toTopOf="@+id/teacher_name"
+            app:layout_constraintBottom_toBottomOf="@+id/location_icon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/location_building"
             app:layout_constraintTop_toBottomOf="@+id/discipline"
@@ -69,14 +69,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:layout_marginTop="2dp"
             android:layout_marginBottom="7dp"
             android:fontFamily="@font/oxygen"
             android:text="Фамилия Имя Отчество"
             android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/teacher_icon"
-            app:layout_constraintTop_toBottomOf="@+id/location_building"
+            app:layout_constraintTop_toBottomOf="@+id/textView11"
             app:layout_constraintVertical_bias="0.5" />
 
         <TextView
@@ -113,6 +112,26 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/teacher_name"
             app:srcCompat="@drawable/lesson_teacher" />
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            app:layout_constraintBottom_toTopOf="@+id/teacher_icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView11"
+            app:srcCompat="@drawable/group_for_lesson_icon" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="Группа"
+            android:textSize="10sp"
+            app:layout_constraintStart_toEndOf="@+id/imageView5"
+            app:layout_constraintTop_toBottomOf="@+id/location_building" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -167,6 +186,7 @@
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
