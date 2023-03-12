@@ -72,4 +72,7 @@
     <string name="group">Группа:</string>
     <string name="group_number">номер группы</string>
     <string name="logout">выход</string>
+    <string name="date_selector">00</string>
+    <string name="is_today">сегодня</string>
+    <string name="day">ПН</string>
 </resources>
