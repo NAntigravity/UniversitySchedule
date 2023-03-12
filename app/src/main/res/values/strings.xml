@@ -66,4 +66,14 @@
     <string name="backToSchedule">Вернуться к расписанию</string>
     <string name="month">Месяц,</string>
     <string name="year">год</string>
+    <string name="greetings">Привет,</string>
+    <string name="example_gmail_com">example@gmail.com</string>
+    <string name="person_status">Статус</string>
+    <string name="group">Группа:</string>
+    <string name="group_number">номер группы</string>
+    <string name="logout">выход</string>
+    <string name="date_selector">00</string>
+    <string name="is_today">сегодня</string>
+    <string name="day">ПН</string>
+    <string name="name_field">Введите имя</string>
 </resources>
