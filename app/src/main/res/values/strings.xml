@@ -75,4 +75,5 @@
     <string name="date_selector">00</string>
     <string name="is_today">сегодня</string>
     <string name="day">ПН</string>
+    <string name="name_field">Введите имя</string>
 </resources>

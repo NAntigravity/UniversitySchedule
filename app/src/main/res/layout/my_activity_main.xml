@@ -57,7 +57,7 @@
             android:visibility="visible"
             android:textColor="@color/cian_blue"
             android:textSize="34sp"
-            app:layout_constraintBottom_toTopOf="@+id/passwordField"
+            app:layout_constraintBottom_toTopOf="@+id/name_field_registration"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -65,7 +65,7 @@
             app:layout_constraintVertical_chainStyle="packed" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/emailField"
+            android:id="@+id/password_field_registration"
             style="@style/TextInputLayoutStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -74,7 +74,7 @@
             app:layout_constraintBottom_toTopOf="@+id/login_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/passwordField"
+            app:layout_constraintTop_toBottomOf="@+id/name_field_registration"
             app:layout_constraintVertical_bias="0.5"
             app:layout_constraintWidth_percent=".70">
 
@@ -86,14 +86,14 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/passwordField"
+            android:id="@+id/name_field_registration"
             style="@style/TextInputLayoutStyle"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="24dp"
             android:hint="@string/email"
-            app:layout_constraintBottom_toTopOf="@+id/emailField"
+            app:layout_constraintBottom_toTopOf="@+id/password_field_registration"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView"
@@ -119,7 +119,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/openRegisterForm"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/emailField"
+            app:layout_constraintTop_toBottomOf="@+id/password_field_registration"
             app:layout_constraintVertical_bias="0.5" />
 
         <Button

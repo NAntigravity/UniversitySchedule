@@ -11,17 +11,19 @@
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/emailField"
+        android:id="@+id/password_field_registration"
         style="@style/TextInputLayoutStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
         android:hint="@string/password"
+        android:maxLines="1"
+        android:inputType="textPassword"
         app:layout_constraintBottom_toTopOf="@+id/openRegisterForm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordField"
+        app:layout_constraintTop_toBottomOf="@+id/name_field_registration"
         app:layout_constraintVertical_bias="0.5"
         app:layout_constraintWidth_percent=".70">
 
@@ -32,14 +34,38 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/passwordField"
+        android:id="@+id/name_field_registration"
         style="@style/TextInputLayoutStyle"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:layout_marginBottom="24dp"
+        android:hint="@string/name_field"
+        android:maxLines="1"
+        app:layout_constraintBottom_toTopOf="@+id/password_field_registration"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email_field_registration"
+        app:layout_constraintVertical_bias="0.5"
+        app:layout_constraintWidth_percent=".70">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/email_field_registration"
+        style="@style/TextInputLayoutStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:hint="@string/email"
-        app:layout_constraintBottom_toTopOf="@+id/emailField"
+        android:maxLines="1"
+        android:inputType="textEmailAddress"
+        app:layout_constraintBottom_toTopOf="@+id/name_field_registration"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -57,6 +83,7 @@
         android:id="@+id/openRegisterForm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="32dp"
         android:fontFamily="@font/oxygen"
         android:text="@string/registerButton"
@@ -65,7 +92,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailField"
+        app:layout_constraintTop_toBottomOf="@+id/password_field_registration"
         app:layout_constraintVertical_bias="0.5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
