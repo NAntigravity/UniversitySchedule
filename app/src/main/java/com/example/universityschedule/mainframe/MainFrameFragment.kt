@@ -25,7 +25,7 @@ class MainFrameFragment: Fragment() {
         fun bind(data: Lesson) {
             this.data = data
             discipline.text = data.subject.toString()
-            building.text = "Корпус № " + data.building.toString() + ","
+            building.text = data.building.toString() + ","
             room.text = data.room.toString()
             teacher.text = data.teacher.toString()
             startTime.text = enumConverter.getTime(data.timeslot).first

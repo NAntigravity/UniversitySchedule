@@ -108,8 +108,10 @@
                 tools:layout_editor_absoluteX="84dp"
                 tools:layout_editor_absoluteY="311dp" />
 
-            <TextView
+            <EditText
                 android:id="@+id/groupNumber"
+                android:background="@android:color/transparent"
+                android:maxLines="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
@@ -153,7 +155,7 @@
             android:id="@+id/group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:constraint_referenced_ids="logoutButton" />
+            app:constraint_referenced_ids="button" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
