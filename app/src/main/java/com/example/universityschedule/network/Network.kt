@@ -3,11 +3,11 @@ package com.example.universityschedule.network
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.example.universityschedule.MainApplication
-import com.example.universityschedule.network.testfiles.UserTestApi
 import com.example.universityschedule.network.api.*
 import com.example.universityschedule.network.models.basicmodels.ErrorResponse
 import com.example.universityschedule.network.retrofit.MyAuthenticator
 import com.example.universityschedule.network.retrofit.MyInterceptor
+import com.example.universityschedule.network.testfiles.UserTestApi
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -22,10 +22,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object Network {
-    const val BASE_URL = "https://jwt-test-api.onrender.com/api/"
+    const val BASE_URL = "http://46.161.150.167:50011/api/"
 
-    var token: String = ""
-    var refreshToken: String = ""
+    var userAuthorized = false
 
     private var masterKey = MasterKey.Builder(MainApplication.applicationContext())
         .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
@@ -39,12 +38,12 @@ object Network {
         EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
     )
 
-    fun updateToken(newToken: String, typeOfToken: String){
-        sharedPreferences.edit().putString(typeOfToken, newToken).apply()
+    fun updateSharedPrefs(typeOfData: String, newToken: String) {
+        sharedPreferences.edit().putString(typeOfData, newToken).apply()
     }
 
-    fun getToken(typeOfToken: String): String? {
-        return sharedPreferences.getString(typeOfToken, "")
+    fun getSharedPrefs(typeOfData: String): String? {
+        return sharedPreferences.getString(typeOfData, "")
     }
 
     private fun getHttpClient(): OkHttpClient {

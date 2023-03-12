@@ -5,10 +5,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.universityschedule.R
@@ -23,6 +25,7 @@ class SelectRoomScheduleFragment: Fragment() {
 
     private val viewModel by lazy { ViewModelProvider(this)[SelectRoomViewModel::class.java] }
 
+    private lateinit var backButton: ImageView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,6 +34,7 @@ class SelectRoomScheduleFragment: Fragment() {
     ): View? {
 
         val buildingId = requireArguments().getString("buildingId") as String
+        val buildingTitle = requireArguments().getString("buildingTitle") as String
 
         val view = inflater.inflate(R.layout.select_room, container, false)
         recyclerView = view.findViewById(R.id.suggestion_list)
@@ -40,9 +44,11 @@ class SelectRoomScheduleFragment: Fragment() {
         recyclerView.adapter = adapter
 
         val textView: TextView = view.findViewById(R.id.building)
-        textView.text = "${buildingId} " + resources.getText(R.string.building)
+        textView.text = buildingTitle
 
         updateUi(view.findViewById(R.id.progressBar), buildingId)
+        backButton = view.findViewById(R.id.backButton)
+        backButton.setOnClickListener { findNavController().navigateUp() }
 
         return view
     }
@@ -72,7 +78,7 @@ class SelectRoomScheduleFragment: Fragment() {
 
         fun bind(data: Room) {
             this.data = data
-            textView.text = data.number
+            textView.text = data.name
         }
 
         init {
@@ -80,7 +86,7 @@ class SelectRoomScheduleFragment: Fragment() {
         }
 
         override fun onClick(p0: View?) {
-            Log.d("!", "Clicked on ${textView.text}!")
+            findNavController().navigate(SelectRoomScheduleFragmentDirections.actionSelectRoomFrameToMainFrame(roomId = data.id))
         }
     }
 
@@ -99,15 +105,4 @@ class SelectRoomScheduleFragment: Fragment() {
         override fun getItemCount() = suggestions.size
     }
 
-
-    companion object {
-        fun newInstance(buildingId: String): SelectRoomScheduleFragment {
-            val args = Bundle()
-            args.putString("buildingId", buildingId)
-
-            val newFragment = SelectRoomScheduleFragment()
-            newFragment.arguments = args
-            return newFragment
-        }
-    }
 }

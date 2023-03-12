@@ -3,7 +3,145 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/LoadingFrame">
+
+
+    <fragment
+        android:id="@+id/LoadingFrame"
+        android:name="com.example.universityschedule.LoadingFragment"
+        tools:layout="@layout/loading_frame">
+
+        <action
+            android:id="@+id/action_LoadingFrame_to_MainFrame"
+            app:destination="@id/MainFrame" />
+        <action
+            android:id="@+id/action_LoadingFrame_to_Authorization"
+            app:destination="@id/AuthorizationFrame" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/AuthorizationFrame"
+        android:name="com.example.universityschedule.AuthorizationFragment"
+        tools:layout="@layout/authorization_frame"
+        app:popUpTo="@+id/AuthorizationFrame">
+
+        <action
+            android:id="@+id/action_AuthorizationFrame_to_MainFrame"
+            app:destination="@id/MainFrame" />
+        <action
+            android:id="@+id/action_AuthorizationFrame_to_MenuFrame"
+            app:destination="@id/MenuFrame"/>
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/MainFrame"
+        android:name="com.example.universityschedule.MainFragment"
+        tools:layout="@layout/main_frame">
+
+        <action
+            android:id="@+id/action_MainFrame_to_MenuFrame"
+            app:destination="@id/MenuFrame" />
+        <argument
+            android:name="groupId"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
+            android:name="roomId"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
+            android:name="teacherId"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/MenuFrame"
+        android:name="com.example.universityschedule.MenuFragment"
+        tools:layout="@layout/menu">
+
+        <action
+            android:id="@+id/action_MenuFrame_to_ProfileFrame"
+            app:destination="@id/ProfileFrame" />
+        <action
+            android:id="@+id/action_MenuFrame_to_MainFrame"
+            app:destination="@id/MainFrame" />
+        <action
+            android:id="@+id/action_MenuFrame_to_SelectGroupFrame"
+            app:destination="@id/SelectGroupFrame" />
+        <action
+            android:id="@+id/action_MenuFrame_to_SelectBuildingMenuFrame"
+            app:destination="@id/SelectBuildingFrame" />
+        <action
+            android:id="@+id/action_MenuFrame_to_SelectTeacherMenuFrame"
+            app:destination="@id/SelectTeacherFrame" />
+        <argument
+            android:name="authorizedUser"
+            app:argType="boolean"
+            android:defaultValue="false" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/ProfileFrame"
+        tools:layout="@layout/fragment_first">
+
+        <action
+            android:id="@+id/action_ProfileFrame_to_AuthorizationFrame"
+            app:destination="@id/AuthorizationFrame" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/SelectGroupFrame"
+        android:name="com.example.universityschedule.selectschedule.SelectGroupFragment"
+        tools:layout="@layout/select_schedule">
+
+        <action
+            android:id="@+id/action_SelectGroupFrame_to_MainFrame"
+            app:destination="@id/MainFrame" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/SelectBuildingFrame"
+        android:name="com.example.universityschedule.selectschedule.SelectBuildingFragment"
+        tools:layout="@layout/select_schedule">
+
+        <action
+            android:id="@+id/action_SelectBuildingFrame_to_SelectRoomFrame"
+            app:destination="@id/SelectRoomFrame" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/SelectRoomFrame"
+        android:name="com.example.universityschedule.selectschedule.SelectRoomScheduleFragment"
+        tools:layout="@layout/select_room">
+
+        <action
+            android:id="@+id/action_SelectRoomFrame_to_MainFrame"
+            app:destination="@id/MainFrame" />
+        <argument
+            android:name="buildingId"
+            app:argType="string" />
+        <argument
+            android:name="buildingTitle"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/SelectTeacherFrame"
+        android:name="com.example.universityschedule.selectschedule.SelectTeacherFragment"
+        tools:layout="@layout/select_schedule">
+
+        <action
+            android:id="@+id/action_SelectTeacherFrame_to_MainFrame"
+            app:destination="@id/MainFrame" />
+    </fragment>
+
 
     <fragment
         android:id="@+id/FirstFragment"

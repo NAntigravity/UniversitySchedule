@@ -4,6 +4,7 @@ import com.example.universityschedule.network.Network
 import com.example.universityschedule.network.api.AuthApi
 import com.example.universityschedule.network.apiRequestFlow
 import com.example.universityschedule.network.models.basicmodels.LoginRequestBody
+import com.example.universityschedule.network.models.basicmodels.RegisterRequestBody
 
 class AuthRepository {
     private val authApi: AuthApi = Network.getAuthApi()
@@ -16,7 +17,7 @@ class AuthRepository {
         authApi.logout()
     }
 
-    fun register(registerData: LoginRequestBody) = apiRequestFlow {
+    fun register(registerData: RegisterRequestBody) = apiRequestFlow {
         authApi.register(registerData)
     }
 }

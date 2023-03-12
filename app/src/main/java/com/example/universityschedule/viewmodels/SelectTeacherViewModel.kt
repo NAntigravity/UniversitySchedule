@@ -1,61 +1,53 @@
 package com.example.universityschedule.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.universityschedule.TroubleShooting
 import com.example.universityschedule.network.ApiResponse
 import com.example.universityschedule.network.BaseViewModel
-import com.example.universityschedule.network.CoroutinesErrorHandler
-import com.example.universityschedule.network.apiRequestFlow
 import com.example.universityschedule.network.models.basicmodels.Teacher
-import com.example.universityschedule.network.models.dropdownlists.TeachersList
-import kotlinx.coroutines.delay
+import com.example.universityschedule.network.repository.InformationRepository
 import kotlinx.coroutines.launch
-import retrofit2.Response
 
-class SelectTeacherViewModel(): BaseViewModel() {
-    private val coroutinesErrorHandler = object : CoroutinesErrorHandler {
-        override fun onError(message: String) {
-            Log.d("!", message)
-        }
-    }
+class SelectTeacherViewModel : BaseViewModel() {
+    private val listInfoRepository: InformationRepository = InformationRepository()
 
-    private val listInfoRepository: InformationTestRepository = InformationTestRepository()
-    //private val listInfoRepository: InformationRepository = InformationRepository()
-
-    val data = MutableLiveData<ApiResponse<TeachersList>>()
+    val data = MutableLiveData<ApiResponse<List<Teacher>>>()
     private var teachers = ArrayList<Teacher>()
 
     val suggestions = ArrayList<Teacher>()
 
-    init{
+    init {
         viewModelScope.launch {
-            baseRequest(data, coroutinesErrorHandler, listInfoRepository.getTeachers())
+            baseRequest(
+                data,
+                TroubleShooting.coroutinesErrorHandler,
+                listInfoRepository.getTeachers()
+            )
         }
     }
 
-    fun filterBy(filter: String){
+    fun filterBy(filter: String) {
         suggestions.clear()
-        if (filter.isNotBlank()){
-            for (teacher in teachers){
-                if (teacher.name.contains(filter, ignoreCase = true)){
+        if (filter.isNotBlank()) {
+            for (teacher in teachers) {
+                if (teacher.name.contains(filter, ignoreCase = true)) {
                     suggestions.add(teacher)
                 }
             }
-        }
-        else{
+        } else {
             copyAllTeachersToSuggestion()
         }
     }
 
-    private fun copyAllTeachersToSuggestion(){
-        for (teacher in teachers){
+    private fun copyAllTeachersToSuggestion() {
+        for (teacher in teachers) {
             suggestions.add(teacher)
         }
     }
 
-    fun saveData(data: TeachersList) {
-        for (teacher in data.teachers){
+    fun saveData(data: List<Teacher>) {
+        for (teacher in data) {
             teachers.add(teacher)
         }
         copyAllTeachersToSuggestion()

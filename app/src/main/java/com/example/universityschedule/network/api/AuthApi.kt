@@ -1,9 +1,9 @@
 package com.example.universityschedule.network.api
-import com.example.universityschedule.network.Message
-import com.example.universityschedule.network.models.basicmodels.LoginRequestBody
-import com.example.universityschedule.network.models.LoginResponse
-import retrofit2.Response
 
+import com.example.universityschedule.network.models.LoginResponse
+import com.example.universityschedule.network.models.basicmodels.LoginRequestBody
+import com.example.universityschedule.network.models.basicmodels.RegisterRequestBody
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -19,5 +19,5 @@ interface AuthApi {
     @POST("auth/logout")
     suspend fun logout(): Response<Nothing>
     @POST("auth/register")
-    suspend fun register(@Body registerForm: LoginRequestBody): Response<LoginResponse>
+    suspend fun register(@Body registerForm: RegisterRequestBody): Response<LoginResponse>
 }

@@ -15,11 +15,11 @@ class EnumConverter {      // ДЕЛАТЬ ПРОВЕРКУ .isBlank() на ко
             }
         }
 
-        fun getRole(role: Int): String{
+        fun getRole(role: String?): String{
             return when(role){
-                0 -> "teacher"
-                1 -> "student"
-                2 -> "admin"
+                "0" -> "teacher"
+                "1" -> "student"
+                "2" -> "admin"
                 else -> ""
             }
         }

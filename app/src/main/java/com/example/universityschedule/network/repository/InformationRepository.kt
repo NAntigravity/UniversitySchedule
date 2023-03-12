@@ -10,7 +10,7 @@ class InformationRepository {
     private val roomApi: RoomApi = Network.getRoomApi()
     private val infoApi: ListInfoApi = Network.getListInfoApi()
 
-    fun getRoomsInBuilding(buildingId: Int) = apiRequestFlow {
+    fun getRoomsInBuilding(buildingId: String) = apiRequestFlow {
         roomApi.getRoomsInBuilding(buildingId)
     }
 

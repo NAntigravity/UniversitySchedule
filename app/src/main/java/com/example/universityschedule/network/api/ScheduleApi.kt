@@ -12,9 +12,9 @@ interface ScheduleApi {
     @GET("lessons/{date}")
     suspend fun getScheduleOnWeek(
         @Path("date") date: LocalDate,
-        @Query("roomId") roomId: String? = null,
-        @Query("groupId") groupId: String? = null,
-        @Query("teacherId") teacherId: String? = null,
-        @Query("subjectId") subjectId: String? = null,
+        @Query("roomID") roomId: String? = null,
+        @Query("groupID") groupId: String? = null,
+        @Query("teacherID") teacherId: String? = null,
+        @Query("subjectID") subjectId: String? = null,
     ): Response<Week>
 }

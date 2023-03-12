@@ -8,12 +8,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.EditText
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
 import android.widget.TextView.OnEditorActionListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.universityschedule.R
@@ -27,6 +26,8 @@ class SelectGroupFragment : Fragment() {
     private var adapter: SelectAdapter? = null
 
     private val viewModel by lazy { ViewModelProvider(this)[SelectGroupViewModel::class.java] }
+
+    private lateinit var backButton: ImageView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,6 +46,9 @@ class SelectGroupFragment : Fragment() {
 
         updateUi(view.findViewById(R.id.progressBar))
         setTextWatchers(view.findViewById(R.id.enterData))
+
+        backButton = view.findViewById(R.id.backButton)
+        backButton.setOnClickListener { findNavController().navigateUp() }
         return view
     }
 
@@ -93,6 +97,8 @@ class SelectGroupFragment : Fragment() {
                     progressBar.visibility = View.GONE
                 }
                 is ApiResponse.Success -> {
+                    Log.d("!", it.data.size.toString())
+                    Log.d("!", it.data.toString())
                     viewModel.saveData(it.data)
                     progressBar.visibility = View.GONE
                     adapter?.notifyDataSetChanged()
@@ -109,7 +115,7 @@ class SelectGroupFragment : Fragment() {
 
         fun bind(data: Group) {
             this.data = data
-            textView.text = data.number
+            textView.text = data.name
         }
 
         init {
@@ -117,7 +123,7 @@ class SelectGroupFragment : Fragment() {
         }
 
         override fun onClick(p0: View?) {
-            Log.d("!", "Clicked on ${textView.text}!")
+            findNavController().navigate(SelectGroupFragmentDirections.actionSelectGroupFrameToMainFrame(groupId = data.id))
         }
     }
 
@@ -135,13 +141,4 @@ class SelectGroupFragment : Fragment() {
 
         override fun getItemCount() = suggestions.size
     }
-
-    companion object {
-        fun newInstance(): SelectGroupFragment {
-            val newFragment = SelectGroupFragment()
-
-            return newFragment
-        }
-    }
-
 }

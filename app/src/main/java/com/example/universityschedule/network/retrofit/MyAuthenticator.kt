@@ -2,6 +2,7 @@ package com.example.universityschedule.network.retrofit
 
 
 import com.example.universityschedule.MainApplication
+import com.example.universityschedule.TroubleShooting
 import com.example.universityschedule.network.Network
 import com.example.universityschedule.network.api.AuthApi
 import com.example.universityschedule.network.models.LoginResponse
@@ -14,18 +15,18 @@ import retrofit2.converter.gson.GsonConverterFactory
 class MyAuthenticator : Authenticator {
     override fun authenticate(route: Route?, response: Response): Request? {
         return runBlocking {
-            val newTokenResponse = getNewToken(Network.getToken(MainApplication.AccessToken))
+            val newTokenResponse = getNewToken(Network.getSharedPrefs(MainApplication.RefreshToken))
             //val newTokenResponse = getNewToken(Network.RefreshToken)
 
             if (!newTokenResponse.isSuccessful || newTokenResponse.body() == null) {
-                // Всё плохо, кидаем на экран входа
+                TroubleShooting.failToUpdateToken.value = true
             }
 
             newTokenResponse.body()?.let {
-                Network.updateToken(it.access_token, MainApplication.AccessToken)
-                //Network.refreshToken = it.refresh_token
+                Network.updateSharedPrefs(MainApplication.AccessToken, it.accessToken)
+                Network.updateSharedPrefs(MainApplication.RefreshToken, it.refreshToken)
                 response.request.newBuilder()
-                    .header("Authorization", "Bearer ${it.access_token}")
+                    .header("Authorization", "Bearer ${it.accessToken}")
                     .build()
             }
         }

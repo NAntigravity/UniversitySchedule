@@ -1,7 +1,8 @@
 package com.example.universityschedule.network.models.basicmodels
 
 @kotlinx.serialization.Serializable
-data class Group(
-    val id: String,
-    val name: String
+data class RegisterRequestBody(
+    val name: String,
+    val email: String,
+    val password: String
 )
