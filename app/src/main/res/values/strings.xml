@@ -57,4 +57,13 @@
     <string name="building">корпус</string>
     <string name="to_schedule_button">к выбору расписания</string>
     <string name="password">Введите пароль</string>
+    <string name="teachers1">Преподавателя</string>
+
+    <string name="profile">Профиль</string>
+    <string name="mySchedule">Моё расписание</string>
+    <string name="selectScheduleText">Выбрать расписание</string>
+    <string name="rooms">Аудитории</string>
+    <string name="backToSchedule">Вернуться к расписанию</string>
+    <string name="month">Месяц,</string>
+    <string name="year">год</string>
 </resources>

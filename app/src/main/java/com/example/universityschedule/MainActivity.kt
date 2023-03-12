@@ -14,13 +14,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         //WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.main_frame)
 
-        val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
+        /*val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
         if (currentFragment == null) {
             //val fragment = SelectBuildingFragment.newInstance()
             //val fragment = SelectTeacherFragment.newInstance()
@@ -33,7 +32,7 @@ class MainActivity : AppCompatActivity() {
                 .beginTransaction()
                 .add(R.id.fragment_container, fragment)
                 .commit()
-        }
+        }*/
 //        binding = ActivityMainBinding.inflate(layoutInflater)
 //        setContentView(binding.root)
 //
