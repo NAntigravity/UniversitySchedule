@@ -15,14 +15,16 @@
         style="@style/TextInputLayoutStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
         android:hint="@string/password"
         app:layout_constraintBottom_toTopOf="@+id/register_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registerEmailField"
+        app:layout_constraintTop_toBottomOf="@+id/registerNameField"
         app:layout_constraintVertical_bias="0.5"
+        app:layout_constraintVertical_chainStyle="spread_inside"
         app:layout_constraintWidth_percent=".70">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -36,8 +38,7 @@
         style="@style/TextInputLayoutStyle"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginTop="16dp"
         android:hint="@string/name_field"
         android:maxLines="1"
         app:layout_constraintBottom_toTopOf="@+id/registerPasswordField"
@@ -59,14 +60,15 @@
         style="@style/TextInputLayoutStyle"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="32dp"
         android:hint="@string/email"
-        app:layout_constraintBottom_toTopOf="@+id/registerPasswordField"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.5"
+        app:layout_constraintVertical_chainStyle="packed"
         app:layout_constraintWidth_percent=".70">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -79,14 +81,16 @@
         android:id="@+id/register_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="52dp"
         android:fontFamily="@font/oxygen"
         android:text="@string/registerButton"
+
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registerPasswordField"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintTop_toBottomOf="@+id/registerPasswordField" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

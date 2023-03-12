@@ -19,7 +19,7 @@ class MyAuthenticator : Authenticator {
             //val newTokenResponse = getNewToken(Network.RefreshToken)
 
             if (!newTokenResponse.isSuccessful || newTokenResponse.body() == null) {
-                TroubleShooting.failToUpdateToken.value = true
+                //TroubleShooting.failToUpdateToken.value = true
             }
 
             newTokenResponse.body()?.let {
